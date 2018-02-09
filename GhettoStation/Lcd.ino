@@ -6,6 +6,8 @@ void init_lcdscreen() {
 #endif
 
   read_voltage();
+  delay(100);
+  read_voltage();
   char extract[20];
 
 // init LCD
@@ -290,7 +292,18 @@ void lcddisp_homeok() {
     }
 }
 
-void lcddisp_tracking(){
+void lcddisp_tracking()
+{
+  switch(tracking_scr_num)
+  {
+    case 0: lcddisp_tracking0(); break;  
+    case 1: lcddisp_tracking1(); break;  
+    case 2: lcddisp_tracking2(); break;  
+    case 3: lcddisp_tracking3(); break;  
+  }
+}
+
+void lcddisp_tracking0(){
     for ( int i = 1 ; i<5; i++ ) {
         char currentline[21]="";
         switch (i) {
@@ -317,6 +330,57 @@ void lcddisp_tracking(){
         }
         store_lcdline(i,currentline);
     }
+}
+
+void lcddisp_tracking1()
+{
+    char bufferV[6];
+    for ( int i = 1 ; i<5; i++ ) {
+        char currentline[21]="";
+        switch (i) {
+            case 1:
+              sprintf(currentline,"#1 Battery: %s V", dtostrf(voltage_actual, 4, 2, bufferV));
+              break; 
+         }
+        for ( int l = strlen(currentline); l<20 ; l++ ) {
+          strcat(currentline," ");
+        }
+        store_lcdline(i,currentline);
+    }
+}
+
+void lcddisp_tracking2()
+{
+    char bufferV[6];
+    for ( int i = 1 ; i<5; i++ ) {
+        char currentline[21]="";
+        switch (i) {
+            case 1:
+            sprintf(currentline,"#2 Battery: %s V", dtostrf(voltage_actual, 4, 2, bufferV));
+            break; 
+         }
+        for ( int l = strlen(currentline); l<20 ; l++ ) {
+          strcat(currentline," ");
+        }
+        store_lcdline(i,currentline);
+    }  
+}
+
+void lcddisp_tracking3()
+{
+    char bufferV[6];
+    for ( int i = 1 ; i<5; i++ ) {
+        char currentline[21]="";
+        switch (i) {
+            case 1:
+            sprintf(currentline,"#3 Battery: %s V", dtostrf(voltage_actual, 4, 2, bufferV));
+            break; 
+         }
+        for ( int l = strlen(currentline); l<20 ; l++ ) {
+          strcat(currentline," ");
+        }
+        store_lcdline(i,currentline);
+    }  
 }
 
 void lcddisp_telemetry() {
@@ -408,6 +472,40 @@ void lcddisp_baudrate() {
     }
 }
 
+void lcddisp_telem_input() {
+    for ( int i = 1 ; i<5; i++ ) {
+        char currentline[21]="";
+        char extract[21];
+        switch (i) {
+            case 1: 
+                string_input.copy(currentline);  break;
+            case 2:
+                strcpy(currentline, string_load2.copy(extract)); break;
+            case 3:
+                switch (configuration.input) {            
+                    case 0:
+                        // Modem
+                        string_input0.copy(currentline);  break;
+                    case 1:
+                        // Input#1
+                        string_input1.copy(currentline);  break;
+                    case 2:
+                        // Input#2
+                        string_input2.copy(currentline); break;
+                    case 3:
+                        // Input#3
+                        string_input3.copy(currentline);  break;
+                     }
+                    break;
+            case 4:      
+                    string_shome5.copy(currentline); break;
+            }
+        for ( int l = strlen(currentline); l<20 ; l++ ) {
+          strcat(currentline," ");
+        }
+      store_lcdline(i,currentline);
+    }
+}
 // Settings Bank config
 void lcddisp_bank() {
     for ( int i = 1 ; i<5; i++ ) {
@@ -535,7 +633,7 @@ void lcddisp_voltage_ratio() {
     } 
 }
 
-void lcddisp_testservo() {
+void lcddisp_testservo(int testNum, int pan, int tilt) {
     for ( int i = 1 ; i<5; i++ ) {
         char currentline[21]="";
         char extract[21];
@@ -545,7 +643,7 @@ void lcddisp_testservo() {
             case 2:
                 string_servos4.copy(currentline); break;
             case 3:
-                string_load2.copy(currentline); break;     
+                sprintf(currentline,"#:%d P:%03d T:%03d", testNum, pan, tilt); break;
             case 4:      
                 string_shome5.copy(currentline); break;
         }

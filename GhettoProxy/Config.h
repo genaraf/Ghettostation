@@ -27,13 +27,13 @@
 //#define BARO_ALT
 
 //INPUT BAUDRATE
- #define INPUT_BAUD 57600
+ #define INPUT_BAUD 9600
 
 // GhettoProxy just listen & convert in passive mode. If disabled, it will initiate queries packet.
  #define PASSIVEMODE 1
 
 //OUTOPUT BAUDRATE
-#define OUTPUT_BAUD 2400
+#define OUTPUT_BAUD 1200
 
 
-//#define DEBUG
+#define DEBUG

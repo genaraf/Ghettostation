@@ -1,11 +1,10 @@
 /*############################################## CONFIGURATION ####################################################
  # Comment/uncomment/edit according to your needs.
  ##################################################################################################################*/
- #define CONFIG_VERSION 1003 // Changing this will reset eeprom to default values
+ #define CONFIG_VERSION 1005 // Changing this will reset eeprom to default values
 //########## BOARD ################################################################################################
- #define TEENSYPLUS2 // Teensy++2 support. 
-//#define MEGA // Arduino Mega board
-
+//#define TEENSYPLUS2 // Teensy++2 support. 
+#define MEGA // Arduino Mega board
 //########## OPTIONS ###############################################################################################
 
 /* If you have communication problem at 56K , set this on. ( ie APM 2/2.5/2.6/AIO )
@@ -34,15 +33,15 @@
  #define DEFAULTELEVATION  15
 
 //Memory bank name to display on LCD (18 char max)
- #define BANK1  "1.2 GHZ"
- #define BANK2  "5.8 Ghz"
+ #define BANK1  "Bank 1"
+ #define BANK2  "Bank 2"
  #define BANK3  "Bank 3"
  #define BANK4  "Bank 4"
  
  //GS Battery alarm
  #define MIN_VOLTAGE1 10.5f // First battery alarm level. Will emit 2 short tones every 10 sec.
  #define MIN_VOLTAGE2 10.0f // Second battery alarm level. Will emit 1 short + 1 long tone every 5 sec
- #define VOLTAGE_RATIO 600   // Default multiplier for battery voltage reading * 100. This can eb adjustd later from the menu.
+ #define VOLTAGE_RATIO 441   // Default multiplier for battery voltage reading * 100. This can eb adjustd later from the menu.
  
  // Minimum voltage for lipo alert
 //########### GROUND OSD TELEMETRY OUTPUT #########################################################################
@@ -67,16 +66,16 @@
 //. Those are just default values when not configured.
 // To prevent burning servo they boot starts at neutral for all values. Adjust them directly from the menu.
 
- #define PAN_MAXPWM 1500     //max pan servo pwm value
- #define PAN_MAXANGLE 90     //Max angle clockwise (on the right) relative to PAN_MAXPWM. 
- #define PAN_MINPWM 1500     //min pan servo pwm valuemin pan servo pwm value
- #define PAN_MINANGLE 90	    //Max angle counter clockwise (on the left) relative to PAN_MINPWM.
+#define PAN_MINPWM 2060     //min pan servo pwm valuemin pan servo pwm value
+#define PAN_MAXPWM 1120     //max pan servo pwm value
+#define PAN_MINANGLE 0    //Max angle counter clockwise (on the left) relative to PAN_MINPWM.
+#define PAN_MAXANGLE 359    //Max angle clockwise (on the right) relative to PAN_MAXPWM. 
 
- #define TILT_MAXPWM 1500    //max tilt pwm value 
- #define TILT_MAXANGLE 90    //max tilt angle considering 0° is facing toward.
- #define TILT_MINPWM 1500    //min tilt pwm value
- #define TILT_MINANGLE 0     //minimum tilt angle. Considering 0 is facing toward, a -10 value would means we can tilt 10° down.
-
+#define TILT_MINPWM 1700     //min tilt pwm value
+#define TILT_MAXPWM 830    //max tilt pwm value 
+#define TILT_MINANGLE 0     //minimum tilt angle. Considering 0 is facing toward, a -10 value would means we can tilt 10° down.
+#define TILT_MAXANGLE 90    //max tilt angle considering 0° is facing toward.
+ 
 
 
 //########################################### BOARDS PINOUTS #########################################################
@@ -101,12 +100,15 @@
   #define LEFT_BUTTON_PIN  32   //Any Digital pin
   #define RIGHT_BUTTON_PIN 34   //Any Digital pin
   #define ENTER_BUTTON_PIN 36   //Any Digital pin
-  #define ADC_VOLTAGE      41   //(A5) ADC pin used for voltage reading
+  #define ADC_VOLTAGE      A3   //(A3) ADC pin used for voltage reading
   #define BUZZER_PIN        8   //(PH5) Any PWM pin ((add a 100-150 ohm resistor between buzzer & ground)
+  #define INPUT_SEL0       46   //Any Digital pin
+  #define INPUT_SEL1       47   //Any Digital pin
 #endif
 
 //################################################## DEBUG ##########################################################
 //#define DEBUG
+#define DEBUG
 
 //###############################################END OF CONFIG#######################################################
 
